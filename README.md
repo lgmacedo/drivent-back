@@ -38,24 +38,17 @@ npm run dev
 ## How to run tests
 
 1. Follow the steps in the last section
-1. Configure the `.env.test` file using the `.env.example` file (see "Running application locally or inside docker" section for details)
-1. Run all migrations
+2. Configure the `.env.test` file using the `.env.example` file (see "Running application locally or inside docker" section for details)
+3. Run all migrations:
 
 ```bash
-npm run migration:run
+npm run test:migration:run
 ```
 
-3. Run test:
-   (locally)
+4. Run test:
 
 ```bash
 npm run test
-```
-
-(docker)
-
-```bash
-npm run test:docker
 ```
 
 ## Building and starting for production
