@@ -23,10 +23,8 @@ async function getHotelById(userId: number, hotelId: number) {
   if (!ticket) throw notFoundError();
   if (ticket.status === TicketStatus.RESERVED || ticket.TicketType.isRemote || !ticket.TicketType.includesHotel)
     throw paymentRequiredError();
-  const hotel = hotelRepository.getHotelById(hotelId);
-  if (!hotel) {
-    throw notFoundError();
-  }
+  const hotel = await hotelRepository.getHotelById(hotelId);
+  if (!hotel) throw notFoundError();
   return hotel;
 }
 
