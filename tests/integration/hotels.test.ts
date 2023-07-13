@@ -214,7 +214,11 @@ describe('GET /hotels/:id', () => {
 
       const response = await server.get(`/hotels/100000`).set('Authorization', `Bearer ${token}`);
 
-      expect(response.status).toBe(httpStatus.NOT_FOUND);
+      if (ticketType.isRemote || !ticketType.includesHotel) {
+        expect(response.status).toBe(httpStatus.PAYMENT_REQUIRED);
+      } else {
+        expect(response.status).toBe(httpStatus.NOT_FOUND);
+      }
     });
 
     it('should respond with hotel info when everything is ok', async () => {
