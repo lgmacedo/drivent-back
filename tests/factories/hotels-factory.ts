@@ -1,38 +1,21 @@
 import faker from '@faker-js/faker';
 import { prisma } from '@/config';
 
-export async function createHotelWithRooms() {
-  const hotel = {
-    name: faker.company.companyName(),
-    image: faker.image.imageUrl(),
-    Rooms: generateRooms(),
-  };
-
+export async function createHotel() {
   return await prisma.hotel.create({
     data: {
-      name: hotel.name,
-      image: hotel.image,
-      Rooms: {
-        createMany: {
-          data: hotel.Rooms,
-        },
-      },
+      name: faker.name.findName(),
+      image: faker.image.imageUrl(),
     },
   });
 }
 
-function generateRooms() {
-  const numRooms = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
-  const rooms = [];
-
-  for (let i = 0; i < numRooms; i++) {
-    const room = {
-      name: faker.random.word(),
-      capacity: Math.floor(Math.random() * (5 - 1 + 1)) + 1,
-    };
-
-    rooms.push(room);
-  }
-
-  return rooms;
+export async function createRoomWithHotelId(hotelId: number) {
+  return prisma.room.create({
+    data: {
+      name: '1020',
+      capacity: 3,
+      hotelId: hotelId,
+    },
+  });
 }
