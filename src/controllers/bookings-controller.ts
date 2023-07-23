@@ -15,7 +15,7 @@ export async function newBooking(req: AuthenticatedRequest, res: Response) {
   const roomId = req.body.roomId as number;
   const newBooking = await bookingsService.newBooking(userId, roomId);
 
-  return res.status(httpStatus.OK).send(newBooking.id);
+  return res.status(httpStatus.OK).send({ bookingId: newBooking.id });
 }
 
 export async function changeBooking(req: AuthenticatedRequest, res: Response) {
@@ -24,5 +24,5 @@ export async function changeBooking(req: AuthenticatedRequest, res: Response) {
   const bookingId = parseInt(req.params.bookingId);
   await bookingsService.changeBooking(userId, roomId, bookingId);
 
-  return res.status(httpStatus.OK).send(bookingId);
+  return res.status(httpStatus.OK).send({ bookingId });
 }
