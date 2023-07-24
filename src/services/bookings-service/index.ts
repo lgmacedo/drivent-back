@@ -25,7 +25,7 @@ async function newBooking(userId: number, roomId: number) {
   const room = await roomRepository.checkRoom(roomId);
   if (!room) throw notFoundError();
 
-  const roomSpotsTaken = await bookingRepository.checkNumberOfEnrollmentsByRoom(roomId);
+  const roomSpotsTaken = await bookingRepository.checkNumberOfBookingsByRoom(roomId);
   if (roomSpotsTaken === room.capacity) throw forbiddenError();
 
   const newBooking = await bookingRepository.createNewBooking(userId, roomId);
@@ -41,7 +41,7 @@ async function changeBooking(userId: number, roomId: number, bookingId: number) 
   const room = await roomRepository.checkRoom(roomId);
   if (!room) throw notFoundError();
 
-  const roomSpotsTaken = await bookingRepository.checkNumberOfEnrollmentsByRoom(roomId);
+  const roomSpotsTaken = await bookingRepository.checkNumberOfBookingsByRoom(roomId);
   if (roomSpotsTaken === room.capacity) throw forbiddenError();
 
   await bookingRepository.changeRoomId(bookingId, roomId);
