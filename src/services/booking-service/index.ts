@@ -36,8 +36,6 @@ async function changeBooking(userId: number, roomId: number, bookingId: number) 
   const booking = await bookingRepository.getBookingByUserId(userId);
   if (!booking) throw forbiddenError();
 
-  if (booking.userId !== userId) throw unauthorizedError();
-
   const room = await roomRepository.checkRoom(roomId);
   if (!room) throw notFoundError();
 
